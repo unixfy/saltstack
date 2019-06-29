@@ -1,8 +1,9 @@
 ssh:
-  pkg.installed: []
+  pkg.installed:
+    - name: openssh-server
   service.running:
     - watch:
-      - pkg: ssh
+      - pkg: openssh-server
       - file: /etc/ssh/sshd_config
 /etc/ssh/sshd_config:
   file.managed: 
