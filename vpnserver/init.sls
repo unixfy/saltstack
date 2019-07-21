@@ -63,7 +63,7 @@ run-wireguard-script:
       - INTERACTIVE: 'no'
       - CLIENT_DNS: '9.9.9.9,1.1.1.1,1.0.0.1'
       - SERVER_PORT: '51820'
-      - SERVER_HOST: {{ grains['externalip'] }}
+      - SERVER_HOST: {{ grains['external_ip'] }}
 # Monitor the wg-quick service
 wg-quick@wg0:
   service-running:
@@ -81,7 +81,7 @@ run-openvpn-script:
      - env:
        - AUTO_INSTALL: 'y'
        - APPROVE_INSTALL: 'y'
-       - ENDPOINT: {{ grains['externalip'] }}
+       - ENDPOINT: {{ grains['external_ip'] }}
        - PORT_CHOICE: '1'
        - PROTOCOL_CHOICE: '2'
        - DNS: '3'
