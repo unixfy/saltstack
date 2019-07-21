@@ -66,7 +66,7 @@ run-wireguard-script:
       - SERVER_HOST: {{ grains['external_ip'] }}
 # Monitor the wg-quick service
 wg-quick@wg0:
-  service-running:
+  service.running:
     - enable: True
 ################################# OPENVPN #################################
 # Wget the OpenVPN script
