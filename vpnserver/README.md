@@ -12,11 +12,13 @@ This state is designed to be run using `state.highstate` (in conjunction with th
 
 2. Set the hostname using `hostnamectl set-hostname` and point an A record for the hostname - this state will fail if you skip this step!
 
-3. Add `roles: vpnserver` to `/etc/salt/grains` to ensure correct matching.
+3. Install Saltstack and join to the master.
 
-4. Join the minion to the master by modifying `master:` in `/etc/salt/minion`. Restart `salt-minion` service.
+4. Add `roles: vpnserver` to `/etc/salt/grains` to ensure correct matching.
 
-5. Run one of the commands below on the master.
+5. Join the minion to the master by modifying `master:` in `/etc/salt/minion`. Restart `salt-minion` service.
+
+6. Run one of the commands below on the master.
 
 
 ### Commands for reference:
