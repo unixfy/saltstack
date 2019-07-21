@@ -1,0 +1,75 @@
+
+{
+  "inbounds": [
+    {
+      "port": 10808,
+      "listen": "127.0.0.1",
+      "protocol": "socks",
+      "settings": {
+        "udp": true
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "",
+            "port": 443,
+            "users": [
+              {
+                "id": "{{ pillar['v2ray_id'] }}",
+                "alterId": 64,
+                "security": "auto"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {
+          "path": "/"
+        },
+        "security": "tls",
+        "tlsSettings": {
+          "serverName": "",
+          "allowInsecure": false
+        }
+      }
+    },
+    {
+      "protocol": "freedom",
+      "tag": "direct",
+      "settings": {}
+    }
+  ],
+  "routing": {
+    "strategy": "rules",
+    "settings": {
+      "domainStrategy": "IPOnDemand",
+      "rules": [
+        {
+          "type": "field",
+          "ip": [
+            "geoip:private"
+          ],
+          "outboundTag": "direct"
+        }
+      ]
+    }
+  },
+  "dns": {
+    "hosts": {},
+    "servers": [
+      "9.9.9.9",
+      "1.1.1.1",
+      "8.8.8.8",
+      "1.0.0.1",
+      "114.114.114.114",
+      "localhost"
+    ]
+  }
+}

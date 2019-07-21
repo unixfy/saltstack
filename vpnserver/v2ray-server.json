@@ -7,7 +7,7 @@
       "settings": {
         "clients": [
           {
-            "id": "", //todo grab data from pillar
+            "id": "{{ pillar['v2ray_id'] }}",
             "level": 1,
             "alterId": 64
           }
@@ -25,7 +25,7 @@
           "certificates": [
               {
                  "usage": "encipherment",
-                 "certificateFile": "/etc/letsencrypt/live/{{ grains['fqdn'] }}/fullchain.pem", 
+                 "certificateFile": "/etc/letsencrypt/live/{{ grains['fqdn'] }}/fullchain.pem",
                  "keyFile": "/etc/letsencrypt/live/{{ grains['fqdn'] }}/privkey.pem"
               }
           ]

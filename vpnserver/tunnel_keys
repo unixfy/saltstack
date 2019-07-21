@@ -1,0 +1,1 @@
+{{ pillar['ssh_pubkey'] }}
