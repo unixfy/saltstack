@@ -18,7 +18,7 @@ certbot-repo:
   pkgrepo.managed:
     - humanname: Certbot PPA
     - name: ppa:certbot/certbot
-    - dist: {{ grain['oscodename'] }}
+    - dist: {{ grains['oscodename'] }}
     - file: /etc/apt/sources.list.d/certbot.list
     - keyid: 75BCA694
     - keyserver: keyserver.ubuntu.com
