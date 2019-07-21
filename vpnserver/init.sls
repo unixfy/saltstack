@@ -1,5 +1,6 @@
 # Only run if minion is Ubuntu, otherwise don't run and just display an error!
 # HOSTNAME MUST BE SET TO A VALID DOMAIN FOR THIS STATE TO WORK! (hostnamectl set-hostname)
+# This Salt state should be run on a clean-installed server.
 {% if grains['os'] == 'Ubuntu' %}
 ################################# INITIAL SERVER SETUP #################################
 # Add some network optimization rules to sysctl.d
