@@ -1,5 +1,5 @@
 # Only run if minion is Ubuntu, otherwise don't run and just display an error!
-# HOSTNAME MUST BE SET TO FQDN FOR THIS STATE TO WORK!
+# HOSTNAME MUST BE SET TO A VALID DOMAIN FOR THIS STATE TO WORK! (hostnamectl set-hostname)
 {% if grains['os'] == 'Ubuntu' %}
 ################################# INITIAL SERVER SETUP #################################
 # Add some network optimization rules to sysctl.d
@@ -27,7 +27,7 @@ certbot renew -n:
 # Get a Let's Encrypt certificate for the FQDN
 fetch-letsencrypt-certificate:
   cmd.run
-    - name: certbot certonly --standalone --domain {{ grains['fqdn'] }} -m admin@unixfy.me --agree-tos --no-eff-email -n
+    - name: certbot certonly --standalone --domain {{ grains['nodename'] }} -m admin@unixfy.me --agree-tos --no-eff-email -n
 ################################# V2RAY #################################
 # Install v2ray
 bash <(curl -L -s https://install.direct/go.sh):
@@ -85,7 +85,7 @@ run-openvpn-script:
        - PORT_CHOICE: '1'
        - PROTOCOL_CHOICE: '2'
        - DNS: '3'
-       - CLIENT: {{ grains['fqdn'] }}
+       - CLIENT: {{ grains['nodename'] }}
 # Monitor the OpenVPN service and restart if server.conf is modified
 openvpn:
   service.running:

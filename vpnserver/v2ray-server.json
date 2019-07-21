@@ -25,8 +25,8 @@
           "certificates": [
               {
                  "usage": "encipherment",
-                 "certificateFile": "/etc/letsencrypt/live/{{ grains['fqdn'] }}/fullchain.pem",
-                 "keyFile": "/etc/letsencrypt/live/{{ grains['fqdn'] }}/privkey.pem"
+                 "certificateFile": "/etc/letsencrypt/live/{{ grains['nodename'] }}/fullchain.pem",
+                 "keyFile": "/etc/letsencrypt/live/{{ grains['nodename'] }}/privkey.pem"
               }
           ]
         }
