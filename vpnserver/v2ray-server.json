@@ -1,0 +1,68 @@
+{
+  "inbounds": [
+    {
+      "port": 443,
+      "listen": "127.0.0.1",
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "", //todo grab data from pillar
+            "level": 1,
+            "alterId": 64
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {
+          "path": "/websocket/"
+        },
+        "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": false,
+          "allowInsecureCiphers": false,
+          "certificates": [
+              {
+                 "usage": "encipherment",
+                 "certificateFile": "/etc/letsencrypt/live/{{ grains['fqdn'] }}/fullchain.pem", 
+                 "keyFile": "/etc/letsencrypt/live/{{ grains['fqdn'] }}/privkey.pem"
+              }
+          ]
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "settings": {}
+    },
+    {
+      "protocol": "blackhole",
+      "settings": {},
+      "tag": "blocked"
+    }
+  ],
+  "routing": {
+    "rules": [
+      {
+        "type": "field",
+        "ip": [
+          "geoip:private"
+        ],
+        "outboundTag": "blocked"
+      }
+    ]
+  },
+  "dns": {
+    "hosts": {},
+    "servers": [
+      "9.9.9.9",
+      "1.1.1.1",
+      "1.0.0.1",
+      "114.114.114.114",
+      "localhost"
+    ]
+  }
+}
