@@ -139,7 +139,7 @@ zip-up-configs:
 # Upload all config files to https://share.unixfy.me, expire the archive in 2 hours, and generate a json response
 upload-configs:
   cmd.run:
-    - name: 'curl -H "Linx-Randomize: yes" -H "Linx-Expiry: 1200" -H "Accept: application/json" -T {{ grains['host'] }}.tar' https://share.unixfy.me/upload/ > cfgupload.log
+    - name: 'curl -H "Linx-Randomize: yes" -H "Linx-Expiry: 1200" -H "Accept: application/json" -T {{ grains['host'] }}.tar https://share.unixfy.me/upload/ > cfgupload.log'
 {% else %}
 echo "OS Not Compatible! Only Ubuntu works with this Salt state at this time.":
   cmd.run
