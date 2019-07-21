@@ -117,8 +117,9 @@ tunnel:
 # Todo: may need to use files.append to implement sshd security for tunnel user
 ################################# SSLH #################################
 # Install sslh
-sslh:
+sslh_pkg:
   pkg.latest:
+    - name: sslh
     - skip_suggestions: True
 # Configure sslh based on template
 /etc/default/sslh:
