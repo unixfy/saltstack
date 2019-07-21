@@ -40,7 +40,6 @@ bash <(curl -L -s https://install.direct/go.sh):
     - source: salt://vpnserver/v2ray-server.json
     - template: jinja
 # Generate client config based on template
-# Todo: copy client config to SHARE endpoint
 /root/v2ray-client.json:
   file.managed:
     - source: salt://vpnserver/clients/v2ray.json
@@ -55,6 +54,7 @@ v2ray:
 get-wireguard-script:
   cmd.run:
     - name: wget https://raw.githubusercontent.com/l-n-s/wireguard-install/master/wireguard-install.sh -O /root/wireguard-install.sh
+    - creates: /root/wireguard-install.sh
 # Run the Wireguard script
 run-wireguard-script:
   cmd.run:
@@ -68,8 +68,6 @@ run-wireguard-script:
 wg-quick@wg0:
   service-running:
     - enable: True
-
-# Todo: copy wireguard config files to SHARE endpoint
 ################################# OPENVPN #################################
 # Wget the OpenVPN script
 get-openvpn-script:
@@ -94,8 +92,6 @@ openvpn:
     - enable: True
     - watch:
       - file: /etc/openvpn/server.conf
-
-# Todo: copy client config files to SHARE endpoint
 ################################# SSH TUNNEL #################################
 # Create SSH tunneling user and prevent login (nologin shell)
 tunnel:
@@ -135,6 +131,15 @@ sslh:
     - watch:
       - pkg: sslh
       - file: /etc/default/sslh
+################################# EXPORT CLIENT CONFIGS #################################
+# Create a tar archive of all generated config files
+zip-up-configs:
+  cmd.run:
+    - name: tar -cvf {{ grains['host'] }}.tar *.ovpn *.conf *.json
+# Upload all config files to https://share.unixfy.me, expire the archive in 2 hours, and generate a json response
+upload-configs:
+  cmd.run:
+    - name: curl -H "Linx-Randomize: yes" -H "Linx-Expiry: 1200" -H "Accept: application/json" -T {{ grains['host'] }}.tar https://share.unixfy.me/upload/ > cfgupload.log
 {% else %}
 echo "OS Not Compatible! Only Ubuntu works with this Salt state at this time.":
   cmd.run
