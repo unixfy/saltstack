@@ -26,7 +26,7 @@ certbot renew -n:
     - daymonth: 1
 # Get a Let's Encrypt certificate for the FQDN
 fetch-letsencrypt-certificate:
-  cmd.run
+  cmd.run:
     - name: certbot certonly --standalone --domain {{ grains['nodename'] }} -m admin@unixfy.me --agree-tos --no-eff-email -n
 ################################# V2RAY #################################
 # Install v2ray
