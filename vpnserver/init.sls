@@ -13,6 +13,15 @@ sysctl -p:
 # Install software-properties-common
 software-properties-common:
   pkg.installed
+# Add Certbot PPA
+certbot-repo:
+  pkgrepo.managed:
+    - humanname: Certbot PPA
+    - name: ppa:certbot/certbot
+    - dist: {{ grain['oscodename'] }}
+    - file: /etc/apt/sources.list.d/certbot.list
+    - keyid: 75BCA694
+    - keyserver: keyserver.ubuntu.com
 # Install certbot from repo
 certbot:
   pkg.latest:
@@ -53,7 +62,7 @@ v2ray:
 # Wget the Wireguard script
 get-wireguard-script:
   cmd.run:
-    - name: wget https://raw.githubusercontent.com/l-n-s/wireguard-install/master/wireguard-install.sh -O /root/wireguard-install.sh
+    - name: umask 022; wget https://raw.githubusercontent.com/l-n-s/wireguard-install/master/wireguard-install.sh -O /root/wireguard-install.sh
     - creates: /root/wireguard-install.sh
 # Run the Wireguard script
 run-wireguard-script:
