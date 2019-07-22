@@ -135,6 +135,7 @@ sslh_pkg:
 /etc/default/sslh:
   file.managed:
     - source: salt://vpnserver/sslh
+    - template: jinja
 # Monitor sslh service and restart if sslh is updated OR config file is changed
 sslh:
   service.running:
@@ -142,7 +143,6 @@ sslh:
     - watch:
       - pkg: sslh
       - file: /etc/default/sslh
-      - template: jinja
 ################################# EXPORT CLIENT CONFIGS #################################
 # Create a tar archive of all generated config files
 zip-up-configs:
