@@ -12,21 +12,16 @@ sysctl -p:
   cmd.run
 ################################# LET'S ENCRYPT #################################
 # Install software-properties-common
-software-properties-common:
+python-software-properties:
   pkg.installed
 # Add Certbot PPA
 certbot-repo:
   pkgrepo.managed:
-    - humanname: Certbot PPA
-    - name: ppa:certbot/certbot
-    - dist: {{ grains['oscodename'] }}
-    - file: /etc/apt/sources.list.d/certbot.list
-    - keyid: 75BCA694
-    - keyserver: keyserver.ubuntu.com
+    - ppa: certbot/certbot
 # Install certbot from repo
 certbot:
   pkg.latest:
-    - fromrepo: ppa:certbot/certbot
+    - require: certbot-repo
 # Add cronjob to renew LE certificates
 certbot renew -n:
   cron.present:
