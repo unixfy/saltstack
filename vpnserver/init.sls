@@ -4,8 +4,8 @@
 {% if grains['os'] == 'Ubuntu' %}
 ################################# INITIAL SERVER SETUP #################################
 # Add some network optimization rules to sysctl.d
-/etc/sysctl.d/10-vpnserver.conf:
-  file.managed:
+/etc/sysctl.conf:
+  file.append:
     - source: salt://vpnserver/sysctl.conf
 # Update sysctl
 sysctl -p:
