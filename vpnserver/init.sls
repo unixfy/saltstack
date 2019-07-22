@@ -100,8 +100,6 @@ run-openvpn-script:
 openvpn:
   service.running:
     - enable: True
-    - watch:
-      - file: /etc/openvpn/server.conf
 ################################# SSH TUNNEL #################################
 # Create SSH tunneling user and prevent login (nologin shell)
 tunnel:
