@@ -31,7 +31,7 @@
       "streamSettings": {
         "network": "ws",
         "wsSettings": {
-          "path": "/"
+          "path": "/websocket/"
         },
         "security": "tls",
         "tlsSettings": {
