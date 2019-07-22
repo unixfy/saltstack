@@ -95,7 +95,7 @@ run-openvpn-script:
        - PORT_CHOICE: '1'
        - PROTOCOL_CHOICE: '2'
        - DNS: '3'
-       - CLIENT: {{ grains['nodename'] }}
+       - CLIENT: {{ grains['machine_id'] }}
 # Monitor the OpenVPN service and restart if server.conf is modified
 openvpn:
   service.running:
