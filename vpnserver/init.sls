@@ -53,6 +53,7 @@ run-v2ray-script:
 /root/v2ray-client.json:
   file.managed:
     - source: salt://vpnserver/clients/v2ray.json
+    - template: jinja
 # Monitor v2ray service and restart if config.json is edited
 v2ray:
   service.running:
