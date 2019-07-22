@@ -2,7 +2,7 @@
 
 This State is designed to automate my VPN server guide, which can be found [here](https://docs.unixfy.me/books/tutorials/page/set-up-vpn-to-bypass-censorship-%28server%29). It rapidly installs all of the features described in the guide.
 
-You should expect that running the state on each minion will take approximately 10 minutes to 2 hours depending on CPU.
+You should expect that running the state on each minion will take approximately 30 seconds to 1 hour depending on server specifications..
 
 This state is designed to be run using `state.highstate` (in conjunction with the top.sls file) or using the orchestration runner, on a master that uses this repository with `gitfs`.
 
