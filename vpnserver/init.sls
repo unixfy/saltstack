@@ -21,7 +21,8 @@ certbot-repo:
 # Install certbot from repo
 certbot:
   pkg.latest:
-    - require: certbot-repo
+    - require:
+      - certbot-repo
 # Add cronjob to renew LE certificates
 certbot renew -n:
   cron.present:
