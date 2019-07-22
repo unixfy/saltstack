@@ -16,7 +16,7 @@
       "settings": {
         "vnext": [
           {
-            "address": "",
+            "address": "{{ grains['nodename'] }}",
             "port": 443,
             "users": [
               {
@@ -35,7 +35,7 @@
         },
         "security": "tls",
         "tlsSettings": {
-          "serverName": "",
+          "serverName": "{{ grains['nodename'] }}",
           "allowInsecure": false
         }
       }
