@@ -128,7 +128,7 @@ tunnel:
 sslh_pkg:
   pkg.latest:
     - name: sslh
-    - skip_suggestions: True
+    - install_recommends: False
 # Configure sslh based on template
 /etc/default/sslh:
   file.managed:
