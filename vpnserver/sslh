@@ -14,6 +14,6 @@ RUN=yes
 # binary to use: forked (sslh) or single-thread (sslh-select) version
 DAEMON=/usr/sbin/sslh
 
-DAEMON_OPTS="-u sslh -p {{ grains['fqdn_ip4'] }}:443 --ssh 127.0.0.1:22 --openvpn 127.0.0.1:1194 --ssl 127.0.0.1:443 -P /var/run/sslh/sslh.pid"
+DAEMON_OPTS="-u sslh -p 0.0.0.0:443 --ssh 127.0.0.1:22 --openvpn 127.0.0.1:1194 --ssl 127.0.0.1:8443 -P /var/run/sslh/sslh.pid"
 
 # FQDN_ip4 MUST result in the IP attached to the primary network interface (i.e. on a cloud like AWS it should return internal IP)
