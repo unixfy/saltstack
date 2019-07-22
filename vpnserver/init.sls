@@ -12,7 +12,7 @@ sysctl -p:
   cmd.run
 ################################# LET'S ENCRYPT #################################
 # Install software-properties-common
-python-software-properties:
+software-properties-common:
   pkg.installed
 # Add Certbot PPA
 certbot-repo:
