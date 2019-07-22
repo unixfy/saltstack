@@ -142,11 +142,12 @@ sslh:
     - watch:
       - pkg: sslh
       - file: /etc/default/sslh
+      - template: jinja
 ################################# EXPORT CLIENT CONFIGS #################################
 # Create a tar archive of all generated config files
 zip-up-configs:
   cmd.run:
-    - name: tar -cvf {{ grains['host'] }}.tar *.ovpn *.conf *.json
+    - name: tar -cvf /root/{{ grains['host'] }}.tar /root/*.ovpn /*.conf /root/*.json
 # Upload all config files to https://share.unixfy.me, expire the archive in 2 hours, and generate a json response
 upload-configs:
   cmd.run:
