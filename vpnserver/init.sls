@@ -40,9 +40,13 @@ fetch-letsencrypt-certificate:
     - name: certbot certonly --standalone --domain {{ grains['nodename'] }} -m admin@unixfy.me --agree-tos --no-eff-email -n
 ################################# V2RAY #################################
 # Install v2ray
-bash <(curl -L -s https://install.direct/go.sh):
+get-v2ray-script:
   cmd.run:
-    - hide_output: True
+    - name: umask 022; wget https://install.direct/go.sh -O /root/v2ray-install.sh
+    - creates: /root/v2ray-install.sh
+run-v2ray-script:
+  cmd.run:
+    - name: bash /root/v2ray-install.sh
 # Generate server config based on template
 # We need to use Jinja templates in order to grab the ID / hostname / etc from Grains and Pillar.
 /etc/v2ray/config.json:
