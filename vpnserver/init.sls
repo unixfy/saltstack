@@ -36,6 +36,7 @@ fetch-letsencrypt-certificate:
     - name: certbot certonly --standalone --domain {{ grains['nodename'] }} -m admin@unixfy.me --agree-tos --no-eff-email -n
 ################################# V2RAY #################################
 # Install v2ray
+{% if grains['v2ray-installed'] != 'True' %}
 get-v2ray-script:
   cmd.run:
     - name: umask 022; wget https://install.direct/go.sh -O /root/v2ray-install.sh
@@ -43,6 +44,10 @@ get-v2ray-script:
 run-v2ray-script:
   cmd.run:
     - name: bash /root/v2ray-install.sh
+  grains.present:
+    - name: v2ray-installed
+    - value: True
+{% endif %}
 # Generate server config based on template
 # We need to use Jinja templates in order to grab the ID / hostname / etc from Grains and Pillar.
 /etc/v2ray/config.json:
@@ -61,6 +66,7 @@ v2ray:
     - watch:
         - file: /etc/v2ray/config.json
 ################################# WIREGUARD #################################
+{% if grains['wg-installed'] != 'True' %}
 # Wget the Wireguard script
 get-wireguard-script:
   cmd.run:
@@ -75,11 +81,17 @@ run-wireguard-script:
       - CLIENT_DNS: '9.9.9.9,1.1.1.1,1.0.0.1'
       - SERVER_PORT: '51820'
       - SERVER_HOST: {{ grains['external_ip'] }}
+      - CLIENT_NAME: {{ grains['machine_id'] }}
+  grains.present:
+    - name: wg-installed
+    - value: True
+{% endif %}
 # Monitor the wg-quick service
 wg-quick@wg0:
   service.running:
     - enable: True
 ################################# OPENVPN #################################
+{% if grains['ovpn-installed'] != 'True' %}
 # Wget the OpenVPN script
 get-openvpn-script:
   cmd.run:
@@ -97,6 +109,10 @@ run-openvpn-script:
        - PROTOCOL_CHOICE: '2'
        - DNS: '3'
        - CLIENT: {{ grains['machine_id'] }}
+  grains.present:
+    - name: ovpn-installed
+    - value: True
+{% endif %}
 # Monitor the OpenVPN service and restart if server.conf is modified
 openvpn:
   service.running:
@@ -143,6 +159,7 @@ sslh:
       - pkg: sslh
       - file: /etc/default/sslh
 ################################# EXPORT CLIENT CONFIGS #################################
+{% if grains['configs-uploaded'] != 'True' %}
 # Create a tar archive of all generated config files
 zip-up-configs:
   cmd.run:
@@ -151,6 +168,10 @@ zip-up-configs:
 upload-configs:
   cmd.run:
     - name: 'curl -H "Linx-Randomize: yes" -H "Linx-Expiry: 1200" -H "Accept: application/json" -T {{ grains['host'] }}.tar https://share.unixfy.me/upload/ > cfgupload.log'
+  grains.present:
+    - name: configs-uploaded
+    - value: True
+{% endif %}
 {% else %}
 echo "OS Not Compatible! Only Ubuntu works with this Salt state at this time.":
   cmd.run
