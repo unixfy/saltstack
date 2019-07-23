@@ -36,7 +36,7 @@ fetch-letsencrypt-certificate:
     - name: certbot certonly --standalone --domain {{ grains['nodename'] }} -m admin@unixfy.me --agree-tos --no-eff-email -n
 ################################# V2RAY #################################
 # Install v2ray
-{% if salt['grains.get']('vpnserver-v2ray-installed') != 'True' %}
+{% if salt['grains.get']('vpnserver-v2ray-installed') != 'true' %}
 get-v2ray-script:
   cmd.run:
     - name: umask 022; wget https://install.direct/go.sh -O /root/v2ray-install.sh
@@ -66,7 +66,7 @@ v2ray:
     - watch:
         - file: /etc/v2ray/config.json
 ################################# WIREGUARD #################################
-{% if salt['grains.get']('vpnserver-wg-installed') != 'True' %}
+{% if salt['grains.get']('vpnserver-wg-installed') != 'true' %}
 # Wget the Wireguard script
 get-wireguard-script:
   cmd.run:
@@ -91,7 +91,7 @@ wg-quick@wg0:
   service.running:
     - enable: True
 ################################# OPENVPN #################################
-{% if salt['grains.get']('vpnserver-ovpn-installed') != 'True' %}
+{% if salt['grains.get']('vpnserver-ovpn-installed') != 'true' %}
 # Wget the OpenVPN script
 get-openvpn-script:
   cmd.run:
@@ -159,7 +159,7 @@ sslh:
       - pkg: sslh
       - file: /etc/default/sslh
 ################################# EXPORT CLIENT CONFIGS #################################
-{% if salt['grains.get']('vpnserver-configs-uploaded') != 'True' %}
+{% if salt['grains.get']('vpnserver-configs-uploaded') != 'true' %}
 # Create a tar archive of all generated config files
 zip-up-configs:
   cmd.run:
