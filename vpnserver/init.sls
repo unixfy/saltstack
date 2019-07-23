@@ -109,9 +109,9 @@ run-openvpn-script:
        - PROTOCOL_CHOICE: '2'
        - DNS: '3'
        - CLIENT: {{ grains['machine_id'] }}
-  grains.present:
-    - name: vpnserver-ovpn-installed
-    - value: True
+   grains.present:
+     - name: vpnserver-ovpn-installed
+     - value: True
 {% endif %}
 # Monitor the OpenVPN service and restart if server.conf is modified
 openvpn:
