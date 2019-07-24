@@ -164,6 +164,10 @@ sslh:
 zip-up-configs:
   cmd.run:
     - name: tar -cvf /root/{{ grains['host'] }}.tar /root/*.ovpn /*.conf /root/*.json
+    - require:
+      - run-openvpn-script
+      - run-wireguard-script
+      - run-v2ray-script
 # Upload all config files to https://share.unixfy.me, expire the archive in 2 hours, and generate a json response
 upload-configs:
   cmd.run:
