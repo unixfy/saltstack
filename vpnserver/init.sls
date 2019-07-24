@@ -171,6 +171,8 @@ upload-configs:
   grains.present:
     - name: vpnserver-configs-uploaded
     - value: True
+    - require:
+      - sls: zip-up-configs
 {% endif %}
 {% else %}
 echo "OS Not Compatible! Only Ubuntu works with this Salt state at this time.":
