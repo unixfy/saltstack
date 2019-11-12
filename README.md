@@ -8,4 +8,3 @@ I am still learning things about Salt every day, so these scripts will change fr
 
 I use gitfs on my master in order to fetch scripts directly from this repo.
 
-NO, YOU SHOULD NOT use these states on your own servers! 
