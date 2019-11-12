@@ -24,7 +24,7 @@ certbot:
     - require:
       - certbot-repo
 # Add cronjob to renew LE certificates
-certbot renew -n:
+certbot renew -n && service v2ray restart:
   cron.present:
     - identifier: CERTBOTRENEW
     - minute: 0
@@ -109,6 +109,7 @@ run-openvpn-script:
        - PROTOCOL_CHOICE: '2'
        - DNS: '3'
        - CLIENT: {{ grains['machine_id'] }}
+       - IPV6_SUPPORT: 'y'
    grains.present:
      - name: vpnserver-ovpn-installed
      - value: True
